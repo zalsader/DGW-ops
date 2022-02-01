@@ -29,7 +29,7 @@ libdfs --> object: returns file handle
 object --> writer: success
 writer --> rgw: success
 
-loop over data section
+loop over data sections
   rgw -> writer: process(data, offset)
   writer-> libdfs: dfs_write(data, offset)
   libdfs --> writer: success
