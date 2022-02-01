@@ -1,0 +1,46 @@
+@startuml
+
+header DGW Object PUT \n By Ivan Tishchenko\n2019-11-12
+title DGW Object PUT
+
+participant "RGWPutObj" as rgw
+participant "DaosStore" as store
+participant "DaosAtomicWriter" as writer
+participant "DaosObject" as object
+participant "LibDFS" as libdfs
+
+autoactivate on
+
+rgw -> store: get_atomic_writer()
+store --> rgw: new DaosAtomicWriter
+
+
+rgw -> writer: prepare()
+writer -> object: open()
+
+loop over dirs in path
+  object -> libdfs: dfs_mkdir(dir_name)
+  libdfs --> object: success or exists
+end
+
+object -> libdfs: dfs_open(file_name, O_CREAT)
+libdfs --> object: returns file handle
+
+object --> writer: success
+writer --> rgw: success
+
+loop over data section
+  rgw -> writer: process(data, offset)
+  writer-> libdfs: dfs_write(data, offset)
+  libdfs --> writer: success
+  writer --> rgw: success
+end
+
+rgw -> writer: complete()
+writer -> object: close()
+object -> libdfs: dfs_release()
+libdfs --> object: success
+object --> writer: success
+writer --> rgw: success
+
+@enduml
