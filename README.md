@@ -1,1 +1,1 @@
-![CORTX S3 Simple Object Upload](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://gist.githubusercontent.com/zalsader/31ba5df0c7a8af4225e147466ece7a17/raw/ebb86d24981392fd04316af54c5c12bc77c69a3b/DGW_Object_PUT.plantuml)
+![CORTX S3 Simple Object Upload](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://gist.githubusercontent.com/zalsader/31ba5df0c7a8af4225e147466ece7a17/raw/DGW_Object_PUT.plantuml)
