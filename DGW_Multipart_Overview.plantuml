@@ -1,0 +1,22 @@
+@startuml multipart overview
+
+header S3 Multipart Upload Overview \n By Zuhair AlSader\n2022-04-08
+title S3 Multipart Upload Overview
+
+participant "Client" as client
+participant "S3 Server" as server
+
+autoactivate on
+
+client -> server: create-multipart-upload(key)
+server --> client: upload_id
+
+loop over object parts
+  client -> server: upload-part(key, upload_id, part_number, data)
+  server --> client: part etag
+end
+
+client -> server: complete-multipart-upload(key, upload_id, part_etags)
+server --> client: object etag
+
+@enduml

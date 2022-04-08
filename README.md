@@ -1,13 +1,22 @@
 # Daos S3 operations
 
-## `PUT` Operation
+## Basic Object Operations
+
+
+### `PUT` Operation
 
 ![DGW Object PUT](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://raw.githubusercontent.com/zalsader/DGW-ops/main/DGW_Object_PUT.plantuml)
 
-## `GET` Operation
+### `GET` Operation
 
 ![DGW Object GET](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://raw.githubusercontent.com/zalsader/DGW-ops/main/DGW_Object_DELETE.plantuml)
 
-## `DELETE` Operation
+### `DELETE` Operation
 
 ![DGW Object DELETE](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://raw.githubusercontent.com/zalsader/DGW-ops/main/DGW_Object_DELETE.plantuml)
+
+## Multipart Operations
+
+### Overview
+
+![Multipart Overview](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://raw.githubusercontent.com/zalsader/DGW-ops/main/DGW_Multipart_Overview.plantuml)

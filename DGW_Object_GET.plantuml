@@ -1,4 +1,4 @@
-@startuml
+@startuml DGW Object GET
 
 header DGW Object GET \n By Zuhair AlSader\n2022-04-07
 title DGW Object GET
