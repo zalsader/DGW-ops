@@ -1,0 +1,37 @@
+@startuml
+
+header DGW Object GET \n By Zuhair AlSader\n2022-04-07
+title DGW Object GET
+
+participant "RGWPutObj" as rgw
+participant "DaosStore" as store
+participant "DaosReadOp" as readop
+participant "DaosObject" as object
+participant "LibDFS" as libdfs
+
+autoactivate on
+
+rgw -> store: get_read_op()
+store --> rgw: new DaosReadOp
+
+
+rgw -> readop: prepare()
+readop -> object: open()
+
+object -> libdfs: dfs_lookup(path)
+libdfs --> object: returns object handle
+
+object --> readop: success
+readop --> rgw: success
+
+rgw -> readop: iterate(offset, length)
+readop-> libdfs: dfs_read(offset, length)
+libdfs --> readop: file data
+readop --> rgw: file data
+
+readop -> object: close()
+object -> libdfs: dfs_release()
+libdfs --> object: success
+object --> readop: success
+
+@enduml
