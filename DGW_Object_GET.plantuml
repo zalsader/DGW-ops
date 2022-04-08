@@ -29,9 +29,9 @@ readop-> libdfs: dfs_read(offset, length)
 libdfs --> readop: file data
 readop --> rgw: file data
 
-readop -> object: close()
+readop -> object: <<destroy>>
 object -> libdfs: dfs_release()
 libdfs --> object: success
-object --> readop: success
+destroy object
 
 @enduml
