@@ -3,7 +3,7 @@
 header DGW Object GET \n By Zuhair AlSader\n2022-04-07
 title DGW Object GET
 
-participant "RGWPutObj" as rgw
+participant "RGWGetObj" as rgw
 participant "DaosStore" as store
 participant "DaosReadOp" as readop
 participant "DaosObject" as object
