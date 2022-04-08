@@ -1,0 +1,28 @@
+@startuml
+
+header DGW Object DELETE \n By Zuhair AlSader\n2022-04-07
+title DGW Object DELETE
+
+participant "RGWDeleteObj" as rgw
+participant "DaosStore" as store
+participant "DeleteOp" as deleteop
+participant "LibDFS" as libdfs
+
+autoactivate on
+
+rgw -> store: get_delete_op()
+store --> rgw: new DeleteOp
+
+
+rgw -> deleteop: delete_obj()
+deleteop -> libdfs: dfs_lookup(parent_path)
+libdfs --> deleteop: returns parent_handle
+
+deleteop-> libdfs: dfs_remove(parent_handle, file_name)
+libdfs --> deleteop: success
+
+deleteop -> libdfs: dfs_release(parent_handle)
+libdfs --> deleteop: success
+deleteop --> rgw: success
+
+@enduml
