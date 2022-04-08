@@ -1,2 +1,2 @@
 ![DGW Object PUT](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://gist.githubusercontent.com/zalsader/31ba5df0c7a8af4225e147466ece7a17/raw/90e2e9d2bd2b97004f55b69dc5bfac8f2a3caa74/DGW_Object_PUT.plantuml)
-![DGW Object GET](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://gist.githubusercontent.com/zalsader/31ba5df0c7a8af4225e147466ece7a17/raw/2bc3e6c152fe34bc0c7613195b3b11c7985b12be/DGW_Object_GET.plantuml)
+![DGW Object GET](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://gist.githubusercontent.com/zalsader/31ba5df0c7a8af4225e147466ece7a17/raw/44e02ed4333be4645d0f3550db8bc0bf643fe69d/DGW_Object_GET.plantuml)
