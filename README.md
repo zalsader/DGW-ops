@@ -2,7 +2,6 @@
 
 ## Basic Object Operations
 
-
 ### `PUT` Operation
 
 ![DGW Object PUT](http://www.plantuml.com/plantuml/proxy?cache=yes&src=https://raw.githubusercontent.com/zalsader/DGW-ops/main/DGW_Object_PUT.plantuml)
