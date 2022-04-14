@@ -29,11 +29,11 @@ cd /tmp/dfuse
 tree
 
 
-s3cmd get s3://testbucket/test/foo/bar/file /tmp/testfile-get
+s3cmd get s3://testbucket/test/foo/bar/file /tmp/testfile-get --force
 
-s3cmd get s3://testbucket/test/foo/baz/50KB /tmp/50KB-get
+s3cmd get s3://testbucket/test/foo/baz/50KB /tmp/50KB-get --force
 
-s3cmd get s3://testbucket/51KB /tmp/51KB-get
+s3cmd get s3://testbucket/51KB /tmp/51KB-get --force
 
 
 cat /tmp/testfile-get
@@ -72,7 +72,7 @@ s3cmd put /tmp/100MB s3://testbucket/100MB
 s3cmd ls s3://testbucket
 
 
-s3cmd get s3://testbucket/100MB /tmp/100MB-get
+s3cmd get s3://testbucket/100MB /tmp/100MB-get --force
 
 
 md5sum /tmp/100MB /tmp/100MB-get /tmp/dfuse/100MB
@@ -100,8 +100,10 @@ tree
 s3cmd put /tmp/99MB s3://testbucket/99MB --upload-id=
 
 
-s3cmd get s3://testbucket/99MB /tmp/99MB-get
+s3cmd get s3://testbucket/99MB /tmp/99MB-get --force
 
+
+md5sum /tmp/99MB /tmp/99MB-get
 
 
 s3cmd put /tmp/98MB s3://testbucket/98MB
