@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Basics
 
 echo "Test file" > /tmp/testfile

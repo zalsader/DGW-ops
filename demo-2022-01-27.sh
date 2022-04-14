@@ -1,3 +1,5 @@
+#!/bin/bash
+
 dmg pool create --size=2GB tank
 
 dmg pool list
