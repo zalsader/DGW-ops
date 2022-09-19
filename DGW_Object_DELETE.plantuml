@@ -6,6 +6,7 @@ title DGW Object DELETE
 participant "RGWDeleteObj" as rgw
 participant "DaosStore" as store
 participant "DeleteOp" as deleteop
+participant "LibDS3" as libds3
 participant "LibDFS" as libdfs
 
 autoactivate on
@@ -15,14 +16,16 @@ store --> rgw: new DeleteOp
 
 
 rgw -> deleteop: delete_obj()
-deleteop -> libdfs: dfs_lookup(parent_path)
-libdfs --> deleteop: returns parent_handle
+deleteop -> libds3: ds3_obj_destroy(parent_path)
+libds3 -> libdfs: dfs_lookup(parent_path)
+libdfs --> libds3: return parent_handle
 
-deleteop-> libdfs: dfs_remove(parent_handle, file_name)
-libdfs --> deleteop: success
+libds3-> libdfs: dfs_remove(parent_handle, file_name)
+libdfs --> libds3: success
 
-deleteop -> libdfs: dfs_release(parent_handle)
-libdfs --> deleteop: success
+libds3 -> libdfs: dfs_release(parent_handle)
+libdfs --> libds3: success
+libds3 --> deleteop: success
 deleteop --> rgw: success
 
 @enduml

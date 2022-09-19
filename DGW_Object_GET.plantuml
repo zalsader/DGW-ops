@@ -7,6 +7,7 @@ participant "RGWGetObj" as rgw
 participant "DaosStore" as store
 participant "DaosReadOp" as readop
 participant "DaosObject" as object
+participant "LibDS3" as libds3
 participant "LibDFS" as libdfs
 
 autoactivate on
@@ -18,20 +19,26 @@ store --> rgw: new DaosReadOp
 rgw -> readop: prepare()
 readop -> object: open()
 
-object -> libdfs: dfs_lookup(path)
-libdfs --> object: returns object handle
+object -> libds3: ds3_obj_open(path)
+libds3 -> libdfs: dfs_lookup(path)
+libdfs --> libds3: return DFS object handle
+libds3 --> object: return DS3 object handle
 
 object --> readop: success
 readop --> rgw: success
 
 rgw -> readop: iterate(offset, length)
-readop-> libdfs: dfs_read(offset, length)
-libdfs --> readop: file data
+readop-> libds3: ds3_obj_read(offset, length)
+libds3-> libdfs: dfs_read(offset, length)
+libdfs --> libds3: file data
+libds3 --> readop: file data
 readop --> rgw: file data
 
 readop -> object: <<destroy>>
-object -> libdfs: dfs_release()
-libdfs --> object: success
+object -> libds3: ds3_obj_destroy()
+libds3 -> libdfs: dfs_release()
+libdfs --> libds3: success
+libds3 --> object: success
 destroy object
 
 @enduml

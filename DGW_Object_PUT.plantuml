@@ -7,6 +7,7 @@ participant "RGWPutObj" as rgw
 participant "DaosStore" as store
 participant "DaosAtomicWriter" as writer
 participant "DaosObject" as object
+participant "LibDS3" as libds3
 participant "LibDFS" as libdfs
 
 autoactivate on
@@ -16,31 +17,35 @@ store --> rgw: new DaosAtomicWriter
 
 
 rgw -> writer: prepare()
-writer -> object: open()
+writer -> object: open(key)
+object -> libds3: ds3_obj_create(key)
 
-loop over dirs in path
-  object -> libdfs: dfs_mkdir(dir_name)
-  libdfs --> object: success or exists
+loop dir_name in split(key, /)
+  libds3 -> libdfs: dfs_mkdir(dir_name)
+  libdfs --> libds3: success or exists
 end
 
-object -> libdfs: dfs_open(file_name, O_CREAT)
-libdfs --> object: returns file handle
+libds3 -> libdfs: dfs_open(file_name, O_CREAT)
+libdfs --> libds3: return DFS object handle
 
+libds3 --> object: return DS3 object handle
 object --> writer: success
 writer --> rgw: success
 
 loop over data sections
   rgw -> writer: process(data, offset)
-  writer-> libdfs: dfs_write(data, offset)
-  libdfs --> writer: success
+  writer -> libds3: ds3_obj_write(data, offset)
+  libds3 -> libdfs: dfs_write(data, offset)
+  libdfs --> libds3: success
+  libds3 --> writer: success
   writer --> rgw: success
 end
 
-rgw -> writer: complete()
-writer -> object: close()
-object -> libdfs: dfs_release()
-libdfs --> object: success
-object --> writer: success
-writer --> rgw: success
+writer -> object: <<destroy>>
+object -> libds3: ds3_obj_destroy()
+libds3 -> libdfs: dfs_release()
+libdfs --> libds3: success
+libds3 --> object: success
+destroy object
 
 @enduml
